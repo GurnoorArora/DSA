@@ -1,0 +1,34 @@
+class Solution {
+public:
+    vector<int> nextGreaterElements(vector<int>& nums) {
+        vector<int> greatest_element_to_right;
+        stack<int> st;
+        for(int i=2*nums.size()-1;i>=0;i--)
+        {
+            while(!st.empty() && nums[i%nums.size()]>=st.top())
+            {
+                st.pop();
+            }
+            if(st.empty())
+            {
+                if(i<nums.size())
+                {
+                    greatest_element_to_right.push_back(-1);
+                }
+                st.push(nums[i%nums.size()]);
+            }
+            else
+            {
+                if(i<nums.size())
+                {
+                    greatest_element_to_right.push_back(st.top());
+                }
+                st.push(nums[i%nums.size()]);
+            }
+        }
+
+        reverse(greatest_element_to_right.begin(),greatest_element_to_right.end());
+
+        return greatest_element_to_right;
+    }
+};
